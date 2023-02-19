@@ -1,5 +1,5 @@
 import express from 'express'
-import User from '../models/user'
+import User from '../models/user.js'
 
 //controller to get User
 export const getUser=async(req, res)=>{ 

@@ -30,7 +30,7 @@ connection();
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 app.use("/auth", authRoutes);
-app.use("/user", userRoutes);
+app.use("/users", userRoutes);
 app.use("/posts", userPosts);
 
 app.get("/", (req, res) => {

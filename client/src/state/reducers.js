@@ -11,6 +11,7 @@ const reducer = {
     state.token = null;
   },
   setFriends: (state, action) => {
+    console.log("action.payload.friends ", action.payload.friends);
     if (state.user) {
       state.user.friends = action.payload.friends;
     } else {
@@ -21,8 +22,9 @@ const reducer = {
     state.posts = action.payload.posts;
   },
   setPost: (state, action) => {
+    console.log("state.posts ", state.posts);
     const updatedPost = state.posts.map((post) => {
-      if (post._id === action.payload.post_id) {
+      if (post._id === action.payload.post._id) {
         return action.payload.post;
       }
       return post;

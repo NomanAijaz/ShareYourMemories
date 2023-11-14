@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
 import { BASE_URL } from "constant";
 
-
 const PostWidget = ({
   postId,
   postUserId,
@@ -29,9 +28,9 @@ const PostWidget = ({
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user._id);
-const isLiked = Boolean(likes[loggedInUserId]);
-  console.log("isLiked",isLiked);
-  console.log("likes[loggedInUserId]",likes[loggedInUserId]);
+  const isLiked = Boolean(likes[loggedInUserId]);
+  console.log("isLiked", isLiked);
+  console.log("likes[loggedInUserId]", likes[loggedInUserId]);
   const likeCount = Object.keys(likes)?.length;
 
   const { palette } = useTheme();
@@ -88,7 +87,7 @@ const isLiked = Boolean(likes[loggedInUserId]);
             <IconButton onClick={() => setIsComments(!isComments)}>
               <ChatBubbleOutlineOutlined />
             </IconButton>
-            <Typography>{comments&&comments.length}</Typography>
+            <Typography>{comments && comments.length}</Typography>
           </FlexBetween>
         </FlexBetween>
 
@@ -98,14 +97,15 @@ const isLiked = Boolean(likes[loggedInUserId]);
       </FlexBetween>
       {isComments && (
         <Box mt="0.5rem">
-          {comments&&comments.map((comment, i) => (
-            <Box key={`${name}-${i}`}>
-              <Divider />
-              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment}
-              </Typography>
-            </Box>
-          ))}
+          {comments &&
+            comments?.map((comment, i) => (
+              <Box key={`${name}-${i}`}>
+                <Divider />
+                <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
+                  {comment}
+                </Typography>
+              </Box>
+            ))}
           <Divider />
         </Box>
       )}

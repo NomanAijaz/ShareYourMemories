@@ -29,21 +29,21 @@ export const createPost = async (req, res) => {
     await newPost.save();
 
     const post = await Post.find();
-    res
+    return res
       .status(200)
       .send({ message: "Post successfully", status: true, data: post });
   } catch (error) {
-    res.status(401).send({ error: error.message });
+    return res.status(401).send({ error: error.message });
   }
 };
 export const getFeedPosts = async (req, res) => {
   try {
     const post = await Post.find();
-    res
+    return res
       .status(200)
       .send({ message: "Got Posts successfully", status: true, data: post });
   } catch (error) {
-    res.status(400).send(error.message);
+    return res.status(400).send(error.message);
   }
 };
 
@@ -51,13 +51,13 @@ export const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params;
     const post = await Post.find({ userId });
-    res.status(200).send({
+    return res.status(200).send({
       message: "Got user Posts successfully",
       status: true,
       data: post,
     });
   } catch (error) {
-    res.status(400).send(error.message);
+    return res.status(400).send(error.message);
   }
 };
 
@@ -78,12 +78,12 @@ export const likePost = async (req, res) => {
       { likes: post.likes },
       { new: true }
     );
-    res.status(200).send({
+    return res.status(200).send({
       message: "Got Updated Post successfully",
       status: true,
       data: updatedPost,
     });
   } catch (error) {
-    res.status(400).send(error.message);
+    return res.status(400).send(error.message);
   }
 };

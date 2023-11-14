@@ -10,14 +10,14 @@ export const getUser = async (req, res) => {
     };
     const data = await User.findOne($match);
     if (data)
-      res
+      return res
         .status(200)
         .send({ message: "Get user data Successfully", status: true, data });
-    res
+    return res
       .status(404)
       .send({ message: "User Not Found", status: false, data: [] });
   } catch (error) {
-    res.status(400).send(error.message);
+    return res.status(400).send(error.message);
   }
 };
 export const getUserFriends = async (req, res) => {
@@ -31,7 +31,7 @@ export const getUserFriends = async (req, res) => {
     });
     console.log("data ", data);
     const friends = await Promise.all(
-      data.friends.map(
+      data?.friends?.map(
         async (id) =>
           await User.findOne({ _id: id }).select({
             _id: 1,
@@ -47,16 +47,16 @@ export const getUserFriends = async (req, res) => {
 
     console.log("friends ", friends);
     if (friends)
-      res.status(200).send({
+      return res.status(200).send({
         message: "got user friends Successfully",
         status: true,
         friends,
       });
-    res
+    return res
       .status(404)
       .send({ message: "User Friends Not Found", status: false, data: [] });
   } catch (error) {
-    res.status(400).send(error.message);
+    return res.status(400).send(error.message);
   }
 };
 
@@ -77,15 +77,15 @@ export const addRemoveFrinds = async (req, res) => {
     const hey2 = await User.updateOne({ _id: friend._id }, friend);
 
     if (friend)
-      res.status(200).send({
+      return res.status(200).send({
         friends: friend,
         message: "added friend successfully!!",
         status: true,
       });
-    res
+    return res
       .status(404)
       .send({ message: "User Friends Not Found", status: false, data: [] });
   } catch (error) {
-    res.status(400).send(error.message);
+    return res.status(400).send(error.message);
   }
 };

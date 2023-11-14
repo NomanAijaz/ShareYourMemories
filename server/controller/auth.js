@@ -33,9 +33,9 @@ export const register = async (req, res, next) => {
       impressions: Math.floor(Math.random() * 1000),
     });
 
-    if (saveUser) res.status(201).json(saveUser);
+    if (saveUser) return res.status(201).json(saveUser);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -45,15 +45,15 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
 
-    if (!user) res.status(500).json({ msg: "user does not found" });
+    if (!user) return res.status(500).json({ msg: "user does not found" });
 
     const isMatch = bcrypt.compare(password, user.password);
-    if (!isMatch) res.status(500).json({ msg: "Invalid credentails" });
+    if (!isMatch) return res.status(500).json({ msg: "Invalid credentails" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     delete user.password;
-    res.status(201).json({ token, user });
+    return res.status(201).json({ token, user });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };

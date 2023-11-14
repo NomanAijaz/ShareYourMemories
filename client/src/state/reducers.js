@@ -23,7 +23,7 @@ const reducer = {
   },
   setPost: (state, action) => {
     console.log("state.posts ", state.posts);
-    const updatedPost = state.posts.map((post) => {
+    const updatedPost = state?.posts?.map((post) => {
       if (post._id === action.payload.post._id) {
         return action.payload.post;
       }
